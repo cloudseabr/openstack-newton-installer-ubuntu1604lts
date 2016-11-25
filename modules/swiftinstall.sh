@@ -210,9 +210,7 @@ cat ./libs/swift/rsyncd.conf > /etc/rsyncd.conf
 sed -r -i "s/MANAGEMENT_INTERFACE_IP_ADDRESS/$swifthost/g" /etc/rsyncd.conf
 sed -r -i 's/RSYNC_ENABLE=false/RSYNC_ENABLE=true/g' /etc/default/rsync
 
-# service rsync start
 systemctl start rsync
-#update-rc.d rsync enable
 systemctl enable rsync
 
 echo "#" >> /etc/swift/swift.conf
@@ -227,13 +225,11 @@ crudini --set /etc/swift/swift.conf swift-hash swift_hash_path_prefix $(openssl 
 crudini --set /etc/swift/swift.conf "storage-policy:0" name Policy-0
 crudini --set /etc/swift/swift.conf "storage-policy:0" default yes
  
-#swiftworkers=`grep processor.\*: /proc/cpuinfo |wc -l`
 swiftworkers="auto"
 
 mkdir -p "/var/cache/swift"
 chmod 0700 /var/cache/swift
 chown -R swift:swift /var/cache/swift
-# chown -R root:swift /var/cache/swift
  
 crudini --set /etc/swift/object-server.conf DEFAULT bind_ip $swifthost
 crudini --set /etc/swift/object-server.conf DEFAULT workers $swiftworkers

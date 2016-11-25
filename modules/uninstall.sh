@@ -156,6 +156,8 @@ DEBIAN_FRONTEND=noninteractive aptitude -y purge libvirt-bin libvirt-doc libvirt
 
 DEBIAN_FRONTEND=noninteractive aptitude -y purge dnsmasq-base lxd
 
+DEBIAN_FRONTEND=noninteractive aptitude -y purge strongswan strongswan-ikev2 python-neutron-vpnaas
+
 killall -9 dnsmasq > /dev/null 2>&1
 killall -9 libvirtd > /dev/null 2>&1
 

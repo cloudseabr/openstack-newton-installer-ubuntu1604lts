@@ -44,7 +44,7 @@ else
 	exit 0
 fi
 
-if [ -f /etc/openstack-control-script-config/keystone-extra-idents ]
+if [ -f /etc/openstack-control-script-config/keystone-extra-idents-manila ]
 then
 	echo ""
 	echo "This module was already completed. Exiting !"
@@ -95,6 +95,7 @@ openstack endpoint create --region $endpointsregion \
 openstack endpoint create --region $endpointsregion \
 	sharev2 admin http://$manilahost:8786/v2/%\(tenant_id\)s
 
+date > /etc/openstack-control-script-config/keystone-extra-idents-manila
 
 echo "Ready"
 

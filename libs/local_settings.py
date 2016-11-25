@@ -792,6 +792,7 @@ WEBROOT='/horizon/'
 
 # Compress all assets offline as part of packaging installation
 COMPRESS_OFFLINE = True
+# COMPRESS_OFFLINE = False
 
 # DISALLOW_IFRAME_EMBED can be used to prevent Horizon from being embedded
 # within an iframe. Legacy browsers are still vulnerable to a Cross-Frame

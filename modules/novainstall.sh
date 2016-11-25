@@ -292,7 +292,6 @@ crudini --set /etc/nova/nova.conf DEFAULT compute_driver libvirt.LibvirtDriver
 crudini --set /etc/nova/nova.conf DEFAULT firewall_driver nova.virt.firewall.NoopFirewallDriver
 crudini --set /etc/nova/nova.conf DEFAULT rootwrap_config /etc/nova/rootwrap.conf
 crudini --set /etc/nova/nova.conf DEFAULT osapi_volume_listen 0.0.0.0
-# crudini --set /etc/nova/nova.conf DEFAULT verbose False
 crudini --set /etc/nova/nova.conf DEFAULT service_down_time 60
 crudini --set /etc/nova/nova.conf DEFAULT image_service nova.image.glance.GlanceImageService
 crudini --set /etc/nova/nova.conf libvirt use_virtio_for_bridges True
@@ -300,22 +299,13 @@ crudini --set /etc/nova/nova.conf DEFAULT osapi_compute_listen 0.0.0.0
 crudini --set /etc/nova/nova.conf DEFAULT metadata_listen 0.0.0.0
 crudini --set /etc/nova/nova.conf DEFAULT osapi_compute_workers $osapiworkers
 crudini --set /etc/nova/nova.conf libvirt vif_driver nova.virt.libvirt.vif.LibvirtGenericVIFDriver
-# Deprecated
-# crudini --set /etc/nova/nova.conf DEFAULT network_api_class nova.network.neutronv2.api.API
 crudini --set /etc/nova/nova.conf DEFAULT debug False
 crudini --set /etc/nova/nova.conf DEFAULT my_ip $nova_computehost
-# crudini --set /etc/nova/nova.conf DEFAULT api_paste_config /etc/nova/api-paste.ini
 crudini --set /etc/nova/nova.conf wsgi api_paste_config /etc/nova/api-paste.ini
 crudini --set /etc/nova/nova.conf glance api_servers http://$glancehost:9292
-# Deprecated
-# crudini --set /etc/nova/nova.conf glance host $glancehost
 crudini --set /etc/nova/nova.conf oslo_concurrency lock_path "/var/oslock/nova"
 crudini --set /etc/nova/nova.conf DEFAULT metadata_host $novahost
-# Deprecated
-# crudini --set /etc/nova/nova.conf DEFAULT security_group_api neutron
 crudini --set /etc/nova/nova.conf DEFAULT enabled_apis "osapi_compute,metadata"
-# Deprecated
-# crudini --set /etc/nova/nova.conf DEFAULT volume_api_class nova.volume.cinder.API
 crudini --set /etc/nova/nova.conf libvirt virt_type kvm
 crudini --set /etc/nova/nova.conf DEFAULT start_guests_on_host_boot $start_guests_on_host_boot
 crudini --set /etc/nova/nova.conf DEFAULT resume_guests_state_on_host_boot $resume_guests_state_on_host_boot
@@ -333,7 +323,6 @@ crudini --set /etc/nova/nova.conf DEFAULT multi_instance_display_name_template "
 crudini --set /etc/nova/nova.conf neutron url "http://$neutronhost:9696"
 crudini --set /etc/nova/nova.conf neutron neutron_default_tenant_id default
 crudini --set /etc/nova/nova.conf neutron auth_type password
-# crudini --set /etc/nova/nova.conf neutron auth_section keystone_authtoken
 crudini --set /etc/nova/nova.conf neutron auth_url "http://$keystonehost:35357"
 crudini --set /etc/nova/nova.conf neutron project_domain_name $keystonedomain
 crudini --set /etc/nova/nova.conf neutron user_domain_name $keystonedomain
@@ -407,10 +396,7 @@ sleep 5
 sync
 
 #
-# Deprecated
-# crudini --set /etc/nova/nova.conf libvirt live_migration_flag "VIR_MIGRATE_UNDEFINE_SOURCE,VIR_MIGRATE_PEER2PEER,VIR_MIGRATE_LIVE,VIR_MIGRATE_TUNNELLED"
 crudini --set /etc/nova/nova.conf DEFAULT config_drive_format vfat
-# New in Mitaka for Live Migration
 crudini --set /etc/nova/nova.conf libvirt live_migration_tunnelled True
 
 sed -r -i 's/NOVA_ENABLE\=false/NOVA_ENABLE\=true/' /etc/default/nova-common > /dev/null 2>&1

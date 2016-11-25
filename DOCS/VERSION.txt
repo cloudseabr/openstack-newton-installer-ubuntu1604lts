@@ -1,5 +1,5 @@
 Installer Version:
 
-0.2.0.ub1604lts "Flying Tiger"
+1.0.0.ub1604lts "Flying Tiger"
 
 ONLY FOR OPENSTACK RELEASE 14 "NEWTON"

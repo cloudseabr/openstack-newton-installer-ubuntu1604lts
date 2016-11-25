@@ -116,7 +116,6 @@ echo "#" >> /etc/manila/manila.conf
 # Logs:
 
 crudini --set /etc/manila/manila.conf DEFAULT debug false
-# crudini --set /etc/manila/manila.conf DEFAULT verbose false
 
 #
 # Database flavor configuration based on our selection inside the installer main config file

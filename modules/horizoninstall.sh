@@ -70,8 +70,6 @@ DEBIAN_FRONTEND=noninteractive aptitude -y install apache2 apache2-bin libapache
 a2dismod ssl
 a2dismod python > /dev/null 2>&1
 a2enmod wsgi
-# service apache2 stop >/dev/null 2>&1
-# service apache2 start
 systemctl stop apache2
 systemctl start apache2
 
@@ -110,23 +108,17 @@ DEBIAN_FRONTEND=noninteractive aptitude -y purge libapache2-mod-python
 a2dismod python > /dev/null 2>&1
 a2enmod wsgi
 
-# /etc/init.d/memcached restart
 systemctl restart memcached
 
-# /etc/init.d/apache2 restart
 systemctl restart apache2
 
 DEBIAN_FRONTEND=noninteractive aptitude -y install openstack-dashboard
 
-# DEBIAN_FRONTEND=noninteractive aptitude -y purge openstack-dashboard-ubuntu-theme
-
 a2dismod python > /dev/null 2>&1
 a2enmod wsgi
 
-# /etc/init.d/memcached restart
 systemctl restart memcached
 
-# /etc/init.d/apache2 restart
 systemctl restart apache2
 
 if [ ! -f /var/lib/openstack-dashboard/secret-key/.secret_key_store ]
@@ -193,6 +185,7 @@ echo "" >> /etc/openstack-dashboard/local_settings.py
 if [ $horizondbusage == "yes" ]
 then
 	echo "" >> /etc/openstack-dashboard/local_settings.py
+	echo "SESSION_ENGINE = 'django.contrib.sessions.backends.db'" >> /etc/openstack-dashboard/local_settings.py
         echo "CACHES = {" >> /etc/openstack-dashboard/local_settings.py
         echo " 'default': {" >> /etc/openstack-dashboard/local_settings.py
         echo " 'BACKEND': 'django.core.cache.backends.db.DatabaseCache'," >> /etc/openstack-dashboard/local_settings.py
@@ -227,8 +220,6 @@ then
                 ;;
         esac
 
-        # /usr/share/openstack-dashboard/manage.py syncdb --noinput
-        # /usr/share/openstack-dashboard/manage.py createsuperuser --username=root --email=root@localhost.tld --noinput
         mkdir -p /var/lib/dash/.blackhole
         /usr/share/openstack-dashboard/manage.py syncdb --noinput > /dev/null 2>&1
 	/usr/share/openstack-dashboard/manage.py createcachetable openstack_db_cache
@@ -237,6 +228,7 @@ then
 	sleep 5
 else
         echo "" >> /etc/openstack-dashboard/local_settings.py
+	echo "SESSION_ENGINE = 'django.contrib.sessions.backends.cache'" >> /etc/openstack-dashboard/local_settings.py
         echo "CACHES = {" >> /etc/openstack-dashboard/local_settings.py
         echo " 'default': {" >> /etc/openstack-dashboard/local_settings.py
         echo " 'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache'," >> /etc/openstack-dashboard/local_settings.py
@@ -250,7 +242,6 @@ echo ""
 
 sed -r -i 's/127.0.0.1/0.0.0.0/g' /etc/memcached.conf
 
-# /etc/init.d/memcached restart
 systemctl restart memcached
 
 
@@ -277,8 +268,6 @@ a2enmod wsgi
 # Purging instead or removing seems to break horizon in 16.04lts... weird !!
 aptitude -y remove openstack-dashboard-ubuntu-theme
 
-# Commented - those packager are breaking our installer
-# Meanwhile, we'll use git sources
 if [ $troveinstall == "yes" ]
 then
  	mkdir -p /var/lib/openstack-dashboard/secret-key/
@@ -293,24 +282,12 @@ then
 	DEBIAN_FRONTEND=noninteractive aptitude -y install python-sahara-dashboard
 fi
 
-#if [ $manilainstall == "yes" ]
-#then
-#	mkdir -p /var/lib/openstack-dashboard/secret-key/
-#	touch /var/lib/openstack-dashboard/secret-key/.secret_key_store
-#	DEBIAN_FRONTEND=noninteractive aptitude -y install python-manila-ui
-#fi
+mkdir -p /var/lib/openstack-dashboard/secret-key/
+touch /var/lib/openstack-dashboard/secret-key/.secret_key_store
 
-#if [ $designateinstall == "yes" ]
-#then
-#       mkdir -p /var/lib/openstack-dashboard/secret-key/
-#       touch /var/lib/openstack-dashboard/secret-key/.secret_key_store
-#	DEBIAN_FRONTEND=noninteractive aptitude -y install python-designate-dashboard
-#fi
 
-# /etc/init.d/memcached restart
 systemctl restart memcached
 
-# /etc/init.d/apache2 restart
 systemctl restart apache2
 
 #

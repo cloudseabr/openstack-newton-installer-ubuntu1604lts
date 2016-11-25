@@ -66,13 +66,6 @@ echo "Installing SAHARA Packages"
 
 export DEBIAN_FRONTEND=noninteractive
 
-#
-# We have to do a very nasty patch here... first try fails, so we send errors to /dev/null...
-# A partially installation is done, then after we correctly configure the database, we retry
-# the installation. This retry should go OK !.
-#
-
-# DEBIAN_FRONTEND=noninteractive aptitude -y install python-sahara sahara-common sahara > /dev/null 2>&1
 DEBIAN_FRONTEND=noninteractive aptitude -y install python-sahara sahara-common sahara
 
 echo "Done"
@@ -127,7 +120,6 @@ esac
 #
 
 crudini --set /etc/sahara/sahara.conf DEFAULT debug false
-# crudini --set /etc/sahara/sahara.conf DEFAULT verbose false
 crudini --set /etc/sahara/sahara.conf DEFAULT log_dir /var/log/sahara
 crudini --set /etc/sahara/sahara.conf DEFAULT log_file sahara.log
 crudini --set /etc/sahara/sahara.conf DEFAULT host $saharahost
@@ -228,10 +220,8 @@ echo "Starting Services"
 echo ""
 
 #
-# Part of the nasty patch !!
-#
+# An old failsafe... don't ask !!
 
-# DEBIAN_FRONTEND=noninteractive aptitude -y install python-sahara sahara-common sahara > /dev/null 2>&1
 DEBIAN_FRONTEND=noninteractive aptitude -y install python-sahara sahara-common sahara
 systemctl stop sahara-api > /dev/null 2>&1
 systemctl stop sahara-engine > /dev/null 2>&1
