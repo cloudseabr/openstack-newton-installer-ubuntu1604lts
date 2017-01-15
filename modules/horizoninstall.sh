@@ -108,7 +108,10 @@ DEBIAN_FRONTEND=noninteractive aptitude -y purge libapache2-mod-python
 a2dismod python > /dev/null 2>&1
 a2enmod wsgi
 
+sed -r -i 's/127.0.0.1/0.0.0.0/g' /etc/memcached.conf
+
 systemctl restart memcached
+systemctl enable memcached
 
 systemctl restart apache2
 

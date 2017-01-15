@@ -311,14 +311,18 @@ crudini --set /etc/swift/proxy-server.conf "filter:gatekeeper" use "egg:swift#ga
 # We starts swift proxy and memcached service
 #
 
-start memcached
+# start memcached
 
 sed -r -i 's/127.0.0.1/0.0.0.0/g' /etc/memcached.conf
 
-/etc/init.d/memcached restart
+# /etc/init.d/memcached restart
+systemctl restart memcached
+systemctl enable memcached
 
 start swift-proxy
+systemctl restart swift-proxy
 
+# Failsafe.... dont ask !!!
 update-rc.d memcached enable
 
 ldconfig -v

@@ -1,3 +1,8 @@
+1.0.2.ub1604lts - January 15, 2017
+
+- Minor corrections for memcached usage where needed.
+- Major corrections in trove install/config module.
+
 1.0.1.ub1604lts - December 08, 2016
 
 - Added "disk_allocation_ratio" variable for disk over
