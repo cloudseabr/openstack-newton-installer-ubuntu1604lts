@@ -1,3 +1,9 @@
+1.0.3.ub1604lts - January 27, 2017
+
+- More corrections in trove install/config module related
+  to neutron networks due complete deprecation of nova
+  networking.
+
 1.0.2.ub1604lts - January 15, 2017
 
 - Minor corrections for memcached usage where needed.
