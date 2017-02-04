@@ -109,6 +109,8 @@ DEBIAN_FRONTEND=noninteractive aptitude -y install python-imaging \
 
 DEBIAN_FRONTEND=noninteractive aptitude -y install python-openstackclient
 
+DEBIAN_FRONTEND=noninteractive aptitude -y install python-rtslib
+
 initiallist='
 	python-keystoneclient
 	python-sqlalchemy
