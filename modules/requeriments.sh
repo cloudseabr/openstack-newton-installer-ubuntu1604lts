@@ -221,6 +221,12 @@ aptitude -y install ksmtuned
 systemctl enable ksmtuned
 systemctl restart ksmtuned
 
+if [ $vhostnet == "yes" ]
+then
+	echo "vhost_net" >> /etc/modules
+	modprobe vhost_net
+fi
+
 
 testlibvirt=`dpkg -l libvirt-bin 2>/dev/null|tail -n 1|grep -ci ^ii`
 
