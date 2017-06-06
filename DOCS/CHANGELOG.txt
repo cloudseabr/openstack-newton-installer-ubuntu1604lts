@@ -1,3 +1,9 @@
+1.1.1.ub1604lts - June 06, 2017
+
+- Added extra code in database installation. This
+  new code ensure proper file descriptor settings
+  for mariadb.
+
 1.1.0.ub1604lts - March 3, 2017
 
 - Major changes on cinder install module. Added the needed
