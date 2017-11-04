@@ -275,6 +275,8 @@ echo ""
 systemctl stop apache2
 systemctl start apache2
 systemctl enable apache2
+systemctl enable keystone >/dev/null 2>&1
+systemctl start keystone >/dev/null 2>&1
 
 echo "Done"
 
